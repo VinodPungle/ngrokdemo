@@ -1,0 +1,7 @@
+**/*.tmp
+**/*.log
+**/*.png
+**/*.jpg
+**/*.jpeg
+**/*.gif
+**/*.ipynb_checkpoints

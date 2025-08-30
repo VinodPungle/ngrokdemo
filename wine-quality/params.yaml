@@ -1,0 +1,18 @@
+data:
+  raw_csv: data/raw/winequality-red.csv
+  test_size: 0.2
+  random_state: 42
+  target: quality
+
+model:
+  type: RandomForestClassifier
+  n_estimators: 200
+  max_depth: null
+  class_weight: null  # e.g., 'balanced'
+
+evaluate:
+  average: macro
+
+tracking:
+  experiment_name: wine-quality-experiment
+  run_name: rf-baseline

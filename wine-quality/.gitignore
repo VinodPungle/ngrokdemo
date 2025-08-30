@@ -1,0 +1,11 @@
+__pycache__/
+.venv/
+.env
+.idea/
+.vscode/
+.pytest_cache/
+mlruns/
+.dvc/
+data/processed/
+artifacts/
+.DS_Store

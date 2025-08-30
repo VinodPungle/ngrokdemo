@@ -1,0 +1,31 @@
+stages:
+  split:
+    cmd: python -m src.data_prep
+    deps:
+    - data/raw/winequality-red.csv
+    - src/data_prep.py
+    - params.yaml
+    outs:
+    - data/processed/train.csv
+    - data/processed/test.csv
+
+  train:
+    cmd: python -m src.train
+    deps:
+    - data/processed/train.csv
+    - src/train.py
+    - params.yaml
+    outs:
+    - artifacts/model/model.pkl
+    - artifacts/model/feature_names.json
+
+  evaluate:
+    cmd: python -m src.evaluate
+    deps:
+    - artifacts/model/model.pkl
+    - data/processed/test.csv
+    - src/evaluate.py
+    - params.yaml
+    outs:
+    - artifacts/metrics/metrics.json
+    - artifacts/metrics/confusion_matrix.png
