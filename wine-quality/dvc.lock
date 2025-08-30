@@ -1,0 +1,78 @@
+schema: '2.0'
+stages:
+  split:
+    cmd: python -m src.data_prep
+    deps:
+    - path: data/raw/winequality-red.csv
+      hash: md5
+      md5: 6a883fd98624e18c0b7ce251f4fab4fb
+      size: 100951
+    - path: params.yaml
+      hash: md5
+      md5: 82d61234d344aca6afcc96f4d66625bd
+      size: 323
+    - path: src/data_prep.py
+      hash: md5
+      md5: d63104016b28738aa626a788aa78d56d
+      size: 735
+    outs:
+    - path: data/processed/test.csv
+      hash: md5
+      md5: d619d1cefb473273117bc2447b88f492
+      size: 19217
+    - path: data/processed/train.csv
+      hash: md5
+      md5: d25797eabeb8da545be1f84670e956a5
+      size: 76015
+  train:
+    cmd: python -m src.train
+    deps:
+    - path: data/processed/train.csv
+      hash: md5
+      md5: d25797eabeb8da545be1f84670e956a5
+      size: 76015
+    - path: params.yaml
+      hash: md5
+      md5: 82d61234d344aca6afcc96f4d66625bd
+      size: 323
+    - path: src/train.py
+      hash: md5
+      md5: 869e7108e8c1f7646701c66f0da5cbdd
+      size: 2609
+    outs:
+    - path: artifacts/model/feature_names.json
+      hash: md5
+      md5: 3720474e30a4dc9aaefbe74b74e0adbe
+      size: 207
+    - path: artifacts/model/model.pkl
+      hash: md5
+      md5: ca1d152e6883c6a6665d9c955c37a6e6
+      size: 12619881
+  evaluate:
+    cmd: python -m src.evaluate
+    deps:
+    - path: artifacts/model/model.pkl
+      hash: md5
+      md5: ca1d152e6883c6a6665d9c955c37a6e6
+      size: 12619881
+    - path: data/processed/test.csv
+      hash: md5
+      md5: d619d1cefb473273117bc2447b88f492
+      size: 19217
+    - path: params.yaml
+      hash: md5
+      md5: 82d61234d344aca6afcc96f4d66625bd
+      size: 323
+    - path: src/evaluate.py
+      hash: md5
+      md5: f9d2a6793fb1f9ac53c9dd2abf3736f9
+      size: 1693
+    outs:
+    - path: artifacts/metrics/confusion_matrix.png
+      hash: md5
+      md5: 18293c19cfbafd11b7db574ed068a651
+      size: 24067
+    - path: artifacts/metrics/metrics.json
+      hash: md5
+      md5: 4852dc233748d8696c759bbbd6d5f015
+      size: 70
